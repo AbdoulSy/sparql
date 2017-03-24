@@ -105,7 +105,7 @@ func (r *Repo) Query(q string) (*Results, error) {
 	return results, nil
 }
 
-func (r *Repo) Update(q string) (*Results, error) {
+func (r *Repo) Update(q string) (result, error) {
 	form := url.Values{}
 	form.Set("update", q)
 	b := form.Encode()
@@ -142,12 +142,9 @@ func (r *Repo) Update(q string) (*Results, error) {
 		}
 		return nil, fmt.Errorf("Query: SPARQL request failed: %s. "+msg, resp.Status)
 	}
-	results, err := ParseJSON(resp.Body)
-	if err != nil {
-		return nil, err
-	}
+	result := "OK"
 
-	return results, nil
+	return result, nil
 }
 
 // Construct performs a SPARQL HTTP request to the Repo, and returns the
