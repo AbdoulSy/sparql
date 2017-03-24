@@ -117,7 +117,7 @@ func (r *Repo) Update(q string) (string, error) {
 		r.endpoint,
 		bytes.NewBufferString(b))
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
@@ -126,7 +126,7 @@ func (r *Repo) Update(q string) (string, error) {
 
 	resp, err := r.client.Do(req)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	defer resp.Body.Close()
 
@@ -140,7 +140,7 @@ func (r *Repo) Update(q string) (string, error) {
 				msg = "Response body: \n" + string(b)
 			}
 		}
-		return nil, fmt.Errorf("Query: SPARQL request failed: %s. "+msg, resp.Status)
+		return "", fmt.Errorf("Query: SPARQL request failed: %s. "+msg, resp.Status)
 	}
 	result := "OK"
 
