@@ -105,7 +105,7 @@ func (r *Repo) Query(q string) (*Results, error) {
 	return results, nil
 }
 
-func (r *Repo) Update(q string) (result string, error) {
+func (r *Repo) Update(q string) (string, error) {
 	form := url.Values{}
 	form.Set("update", q)
 	b := form.Encode()
